@@ -1,159 +1,66 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-    
-    <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
-    
-    <script src="https://jeromeetienne.github.io/AR.js/aframe/build/aframe-ar.js"></script>
-    <script src="gesture-detector.js"></script>
-    <script src="gesture-handler.js"></script>
+  <!-- Script de A-Frame versión 1.0.0 -->
+  <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+  <!-- Script de AR.js con soporte de marcadores + ubicación -->
+  <script src="https://jeromeetienne.github.io/AR.js/aframe/build/aframe-ar.js"></script>
+  <!-- Incluye los scripts locales -->
+  <script src="gesture-detector.js"></script>
+  <script src="gesture-handler.js"></script>
 </head>
 
-<body style="margin: 0px; overflow: hidden;">
-    <a-scene embedded arjs="sourceType: webcam; debugUIEnabled: false; detectionMode: mono_and_matrix; matrixCodeType: 3x3;" gesture-detector>
-        <a-assets>
-            <a-asset-item id="modelo" src="https://cdn.glitch.global/11da06eb-3feb-4af1-bd25-5f7c1882aac7/yellow_gameboy.glb?v=1699056537839"></a-asset-item>
-            <a-asset-item id="modelo2" src="https://cdn.glitch.global/11da06eb-3feb-4af1-bd25-5f7c1882aac7/steam_deck.glb?v=1699056910425"></a-asset-item>
-            <a-asset-item id="modelo3" src="https://cdn.glitch.global/11da06eb-3feb-4af1-bd25-5f7c1882aac7/xbox_series_x.glb?v=1699055812172"></a-asset-item>
-            <a-asset-item id="modelo4" src="https://cdn.glitch.global/11da06eb-3feb-4af1-bd25-5f7c1882aac7/playstation_2_slim.glb?v=1699036410215"></a-asset-item>
-            <a-asset-item id="modelo5" src="https://cdn.glitch.global/11da06eb-3feb-4af1-bd25-5f7c1882aac7/gamecube.glb?v=1699036370682"></a-asset-item>
-          
-            <audio id="song" src="gameboy.mp3" preload="auto"></audio>
-            <audio id="song2" src="steam.mp3" preload="auto"></audio>
-            <audio id="song3" src="xbox.mp3" preload="auto"></audio>
-            <audio id="song4" src="play.mp3" preload="auto"></audio>
-            <audio id="song5" src="gamecube.mp3" preload="auto"></audio>
-        </a-assets>
-      
-        <a-marker
-            id="gameboy"
-            type="pattern"
-            url="GAMEBOY.patt"
-            raycaster="objects: .clickable"
-            emitevents="true"
-            cursor="fuse: false; rayOrigin: mouse;"
-          >
-          <a-entity
-            gltf-model="#modelo"
-            position="0 0 0"
-            scale="1 1 1"
-            class="clickable"
-            gesture-handler
-            soundhandler
-          >
-          </a-entity>    
-        </a-marker>
+<body style="margin: 0; overflow: hidden;">
 
-        <a-marker
-            id="steam"
-            type="barcode"
-            value="7"
-            raycaster="objects: .clickable"
-            emitevents="true"
-            cursor="fuse: false; rayOrigin: mouse;"
-         >
-        <a-entity
-          gltf-model="#modelo2"
-          position="1 -3 1"
-          scale="8 8 8"
-          class="clickable"
-          gesture-handler
-          soundhandler
-        >
-        </a-entity>
-        </a-marker>
-      
-        <a-marker
-          id="xbox"
-          type="barcode"
-          value="8"
-          raycaster="objects: .clickable"
-          emitevents="true"
-          cursor="fuse: false; rayOrigin: mouse;"
-          >
-        <a-entity
-          gltf-model="#modelo3"
-          position="0 0 0"
-          scale="3 3 3"
-          class="clickable"
-          gesture-handler
-          soundhandler
-        >
-        </a-entity>
-      </a-marker>
-      
-      <a-marker
-        id="play"
-        type="barcode"
-        value="5"
-        raycaster="objects: .clickable"
-        emitevents="true"
-        cursor="fuse: false; rayOrigin: mouse;"
-        >
-        <a-entity
-          gltf-model="#modelo4"
-          position="0 0 0"
-          scale="9 9 9"
-          class="clickable"
-          gesture-handler
-          soundhandler
-        >
-        </a-entity>
-      </a-marker>
-      
-      <a-marker
-        id="gamecube"
-        type="barcode"
-        value="4"
-        raycaster="objects: .clickable"
-        emitevents="true"
-        cursor="fuse: false; rayOrigin: mouse;"
-        >
-        <a-entity
-          gltf-model="#modelo5"
-          position="0 1 1"
-          scale="1 1 1"
-          class="clickable"
-          gesture-handler
-          soundhandler
-        >
-        </a-entity>
-      </a-marker>
-	    
-    <a-entity id="audio1" sound="src: #song" autoplay="false"></a-entity>
-    <a-entity id="audio2" sound="src: #song2" autoplay="false"></a-entity>
-    <a-entity id="audio3" sound="src: #song3" autoplay="false"></a-entity>
-    <a-entity id="audio4" sound="src: #song4" autoplay="false"></a-entity>
-    <a-entity id="audio5" sound="src: #song5" autoplay="false"></a-entity>
+  <a-scene embedded arjs="sourceType: webcam; debugUIEnabled: false; detectionMode: mono_and_matrix; matrixCodeType: 3x3;"
+    renderer="logarithmicDepthBuffer: true;"
+    vr-mode-ui="enabled: false" gesture-detector id="scene">
+
+    <a-assets>
+      <!-- Carga los recursos, como modelos 3D y sonidos -->
+      <a-asset-item id="modelo" src="https://cdn.glitch.global/11da06eb-3feb-4af1-bd25-5f7c1882aac7/gamecube.glb?v=1699036370682"></a-asset-item>
+      <a-asset-item id="modelodos" src="mclarenp1.glb"></a-asset-item>
+      <audio id="sound" src="sonido1.mp3" preload="auto"></audio>
+      <audio id="sound2" src="sonido2.mp3" preload="auto"></audio>
+    </a-assets>
+
+    <a-marker id="GAMECUBE" type="barcode" value="7">
+      <a-entity
+        gltf-model="#modelO" scale="0.5 0.5 0.5" rotation="40 85 40" position="0 0 0"
+        class="clickable" gesture-handler soundhandler>
+      </a-entity>
+    </a-marker>
+
+    <a-marker id="mclarenp1" type="barcode" value="6">
+      <a-entity
+        gltf-model="#modelodos" scale="0.5 0.5 0.5" rotation="180 90 90" position="0 0 0"
+        class="clickable" gesture-handler soundhandler>
+      </a-entity>
+    </a-marker>
+
     <a-entity camera></a-entity>
-    </a-scene>
-    <script>
-AFRAME.registerComponent('soundhandler', {
-  init: function () {
-    this.audioEntities = {
-      gameboy: document.querySelector('#audio1'),
-      steam: document.querySelector('#audio2'),
-      xbox: document.querySelector('#audio3'),
-      play: document.querySelector('#audio4'),
-      gamecube: document.querySelector('#audio5'),
-    };
-  },
+    <a-entity id="audio" sound="src: #sound" autoplay="false"></a-entity>
+    <a-entity id="audio2" sound="src: #sound2" autoplay="false"></a-entity>
+  </a-scene>
 
-  tick: function () {
-    for (const markerId in this.audioEntities) {
-      const entity = this.audioEntities[markerId];
-      const marker = document.querySelector(`#${markerId}`);
+  <script>
+    AFRAME.registerComponent('soundhandler', {
+      tick: function () {
+        var entity = document.querySelector('#audio');
+        var entity2 = document.querySelector('#audio2');
 
-      if (marker.object3D.visible) {
-        entity.components.sound.playSound();
-      } else {
-        entity.components.sound.pauseSound();
+        if (document.querySelector('#praga').object3D.visible) {
+          entity2.components.sound.pauseSound();
+          entity.components.sound.playSound();
+        } else if (document.querySelector('#mclarenp1').object3D.visible) {
+          entity.components.sound.pauseSound();
+          entity2.components.sound.playSound();
+        } else {
+          entity.components.sound.pauseSound();
+          entity2.components.sound.pauseSound();
+        }
       }
-    }
-  },
-});
-</script>
+    });
+  </script>
 </body>
-
 </html>
