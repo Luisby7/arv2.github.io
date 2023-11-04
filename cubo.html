@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    
+    <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+    
+    <script src="https://jeromeetienne.github.io/AR.js/aframe/build/aframe-ar.js"></script>
+    <script src="gesture-detector.js"></script>
+    <script src="gesture-handler.js"></script>
+</head>
+
+<body style="margin: 0px; overflow: hidden;">
+    <a-scene embedded arjs="sourceType: webcam; debugUIEnabled: false; detectionMode: mono_and_matrix; matrixCodeType: 3x3;" gesture-detector>
+        <a-assets>
+            <a-asset-item id="modelo" src="https://cdn.glitch.global/11da06eb-3feb-4af1-bd25-5f7c1882aac7/yellow_gameboy.glb?v=1699056537839"></a-asset-item>
+	    <a-asset-item id="modelo2" src="https://cdn.glitch.global/11da06eb-3feb-4af1-bd25-5f7c1882aac7/steam_deck.glb?v=1699056910425"></a-asset-item>
+            <a-asset-item id="modelo3" src="https://cdn.glitch.global/11da06eb-3feb-4af1-bd25-5f7c1882aac7/xbox_series_x.glb?v=1699055812172"></a-asset-item>
+            <a-asset-item id="modelo4" src="https://cdn.glitch.global/11da06eb-3feb-4af1-bd25-5f7c1882aac7/playstation_2_slim.glb?v=1699036410215"></a-asset-item>
+            <a-asset-item id="modelo5" src="https://cdn.glitch.global/11da06eb-3feb-4af1-bd25-5f7c1882aac7/gamecube.glb?v=1699036370682"></a-asset-item>
+          
+            <audio id="song" src="gameboy.mp3" preload="auto"></audio>
+	          <audio id="song2" src="steam.mp3" preload="auto"></audio>
+            <audio id="song3" src="xbox.mp3" preload="auto"></audio>
+            <audio id="song4" src="play.mp3" preload="auto"></audio>
+            <audio id="song5" src="gamecube.mp3" preload="auto"></audio>
+        </a-assets>
+      
+        <a-marker
+            id= "gameboy"
+            type="pattern"
+            url= "pattern-game-boy.patt"
+            raycaster="objects: .clickable"
+            emitevents="true"
+            cursor="fuse: false; rayOrigin: mouse;"
+          >
+          <a-entity
+            gltf-model="#modelo"
+            position="0 0 0"
+            scale="1 1 1"
+            class="clickable"
+            gesture-handler
+            soundhandler
+          >
+          </a-entity>    
+        </a-marker>
+
+        <a-marker
+            id= "steam"
+            type="barcode"
+            value= "7"
+            raycaster="objects: .clickable"
+            emitevents="true"
+            cursor="fuse: false; rayOrigin: mouse;"
+         >
+        <a-entity
+          gltf-model="#modelo2"
+          position="1 -3 1"
+          scale="8 8 8"
+          class="clickable"
+          gesture-handler
+          soundhandler
+        >
+        </a-entity>
+        </a-marker>
+      
+        <a-marker
+          id= "xbox"
+          type="barcode"
+          value= "8"
+          raycaster="objects: .clickable"
+          emitevents="true"
+          cursor="fuse: false; rayOrigin: mouse;"
+          >
+        <a-entity
+          gltf-model="#modelo3"
+          position="0 0 0"
+          scale="3 3 3"
+          class="clickable"
+          gesture-handler
+          soundhandler
+        >
+        </a-entity>
+      </a-marker>
+      
+      <a-marker
+  	id= "play"
+        type="barcode"
+	value= "5"
+        raycaster="objects: .clickable"
+        emitevents="true"
+        cursor="fuse: false; rayOrigin: mouse;"
+        >
+        <a-entity
+          gltf-model="#modelo4"
+          position="0 0 0"
+          scale="9 9 9"
+          class="clickable"
+          gesture-handler
+          soundhandler
+        >
+        </a-entity>
+      </a-marker>
+      
+      <a-marker
+  	id= "gamecube"
+        type="barcode"
+	value= "4"
+        raycaster="objects: .clickable"
+        emitevents="true"
+        cursor="fuse: false; rayOrigin: mouse;"
+        >
+        <a-entity
+          gltf-model="#modelo5"
+          position="0 1 1"
+          scale="1 1 1"
+          class="clickable"
+          gesture-handler
+          soundhandler
+        >
+        </a-entity>
+      </a-marker>
+	    
+    <a-entity id="audio1" sound="src: #song" autoplay="false"></a-entity>
+    <a-entity id="audio2" sound="src: #song2" autoplay="false"></a-entity>
+    <a-entity id="audio3" sound="src: #song3" autoplay="false"></a-entity>
+    <a-entity id="audio4" sound="src: #song4" autoplay="false"></a-entity>
+    <a-entity id="audio5" sound="src: #song5" autoplay="false"></a-entity>
+          <a-entity camera></a-entity>
+    </a-scene>
+    <script>
+AFRAME.registerComponent('soundhandler', {
+      tick: function () {
+      var entity = document.querySelector('#audio1');
+      var entity2 = document.querySelector('#audio2');
+      var entity3 = document.querySelector('#audio3');
+      var entity4 = document.querySelector('#audio4');
+      var entity5 = document.querySelector('#audio5');
+        
+
+      if (document.querySelector('#gameboy').object3D.visible == true) {
+        entity2.components.sound.pauseSound();
+        entity3.components.sound.pauseSound();
+        entity4.components.sound.pauseSound();
+        entity5.components.sound.pauseSound();
+        entity.components.sound.playSound();
+
+      } else if (document.querySelector('#steam').object3D.visible == true) {
+         entity.components.sound.pauseSound();
+         entity3.components.sound.pauseSound();
+         entity4.components.sound.pauseSound();
+         entity5.components.sound.pauseSound();
+         entity2.components.sound.playSound();
+      
+      } else if (document.querySelector('#xbox').object3D.visible == true) {
+        entity.components.sound.pauseSound();
+        entity2.components.sound.pauseSound();
+        entity4.components.sound.pauseSound();
+        entity5.components.sound.pauseSound();
+        entity3.components.sound.playSound();
+
+      }
+
+      else if (document.querySelector('#play').object3D.visible == true) {
+        entity.components.sound.pauseSound();
+        entity2.components.sound.pauseSound();
+        entity3.components.sound.pauseSound();
+        entity5.components.sound.pauseSound();
+        entity4.components.sound.playSound();
+
+      }
+
+      else if (document.querySelector('#gamecube').object3D.visible == true) {
+        entity.components.sound.pauseSound();
+        entity2.components.sound.pauseSound();
+        entity4.components.sound.pauseSound();
+        entity3.components.sound.pauseSound();
+        entity5.components.sound.playSound();
+
+      }
+	      
+      else{
+        entity.components.sound.pauseSound();
+        entity2.components.sound.pauseSound();
+        entity3.components.sound.pauseSound();
+        entity4.components.sound.pauseSound();
+        entity5.components.sound.pauseSound();
+       }
+      }
+    });
+</script>
+</body>
+
+</html>
