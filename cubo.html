@@ -27,14 +27,14 @@
     <a-marker id="gamecube" type="barcode" value="7">
       <a-entity
         gltf-model="#modelo" scale="0.5 0.5 0.5" rotation="40 85 40" position="0 0 0"
-        class="clickable" gesture-handler soundhandler="sound: #sound">
+        class="clickable" gesture-handler soundhandler="sound: #sound" move-object>
       </a-entity>
     </a-marker>
 
     <a-marker id="steam" type="barcode" value="6">
       <a-entity
         gltf-model="#modelo2" scale="0.5 0.5 0.5" rotation="180 90 90" position="0 0 0"
-        class="clickable" gesture-handler soundhandler="sound: #sound2">
+        class="clickable" gesture-handler soundhandler="sound: #sound2" move-object>
       </a-entity>
     </a-marker>
 
@@ -42,6 +42,17 @@
   </a-scene>
 
   <script>
+    AFRAME.registerComponent('move-object', {
+      init: function () {
+        const el = this.el;
+        el.addEventListener('click', function () {
+          const currentPosition = el.getAttribute('position');
+          currentPosition.y += 0.1; // Mueve el objeto 0.1 unidades hacia arriba
+          el.setAttribute('position', currentPosition);
+        });
+      }
+    });
+
     AFRAME.registerComponent('soundhandler', {
       schema: {
         sound: { type: 'selector' }
